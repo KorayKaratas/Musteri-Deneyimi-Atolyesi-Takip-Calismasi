@@ -118,10 +118,17 @@ justify-content:center;
 
 .modal{
 background:#fff;
-padding:20px;
+padding:24px;
 border-radius:16px;
 max-width:600px;
 width:90%;
+}
+
+.modal-text{
+white-space:pre-line;
+line-height:1.8;
+font-size:17px;
+margin-top:10px;
 }
 
 .hidden{display:none}
@@ -154,7 +161,7 @@ bildiğini hatırlatmak için hazırlandı.
 <div id="modal" class="overlay hidden">
 <div class="modal">
 <h3 id="modalTitle"></h3>
-<p id="modalText"></p>
+<div id="modalText" class="modal-text"></div>
 <button onclick="closeModal()" class="btn">Kapat</button>
 </div>
 </div>
@@ -165,47 +172,113 @@ const topics = [
 {
 title:"Tetikleyiciyi fark etmek",
 subtitle:"İçeride ne çalışıyor?",
-remind:"Olay değil, yorum seni zorlar."
+remind:`Müşteri seni zorlamıyor.
+Sen, onun davranışına yüklediğin anlamla zorlanıyorsun.
+
+Aynı durum, farklı insanlarda farklı etki yaratır.
+Çünkü farkı yaratan olay değil, yorumdur.
+
+Şimdi dur ve şunu sor:
+Ben şu an neyi büyütüyorum?`
 },
 {
-title:"Olay – Yorum – Duygu",
+title:"Olay – Yorum – Duygu – Tepki zinciri",
 subtitle:"Zinciri yakala",
-remind:"Yorumu yakalarsan duyguyu değiştirirsin."
+remind:`Olan şey olaydır.
+Senin söylediğin yorumdur.
+Hissettiğin duygu, yorumunun sonucudur.
+Tepkin ise bu zincirin son halkasıdır.
+
+Zinciri kırmak istiyorsan, yorumla tepkinin arasına gir.
+1 saniye dur.
+Şunu sor:
+Bu kesin bilgi mi, benim yorumum mu?
+
+Davranış orada değişir.`
 },
 {
 title:"3A modeli",
 subtitle:"Araya gir",
-remind:"An – Ayna – Ayar ile davranışını seç."
+remind:`3A, olay–yorum–duygu–tepki zincirine araya girmeni sağlar.
+
+An:
+Şu an ben ne yaşıyorum?
+Geriliyor muyum, hızlanıyor muyum, savunmaya mı geçiyorum?
+
+Ayna:
+Ben bu duruma ne anlam yüklüyorum?
+
+Ayar:
+Şimdi nasıl davranmayı seçiyorum?
+
+3A kendini bastırmak için değil,
+davranışı bilinçli seçmek için vardır.`
 },
 {
 title:"Dinlemek",
 subtitle:"Yavaşla",
-remind:"Anlaşıldığını hisseden müşteri sakinleşir."
+remind:`Dinlemek cevap vermek değildir.
+Dinlemek anlamaktır.
+
+İnsan anlaşıldığını hissettiğinde gerilim düşer.
+
+Bugün sadece şunu dene:
+Önce anla, sonra konuş.`
 },
 {
 title:"İhtiyaç",
 subtitle:"Altını gör",
-remind:"Davranışın altında ihtiyaç vardır."
+remind:`Müşteri ne istediğini söyler,
+ama neye ihtiyaç duyduğunu her zaman net söyleyemez.
+
+Davranışın altına bak:
+Sinir → anlaşılmama
+Telaş → belirsizlik
+Tekrar → güven ihtiyacı
+
+Etikete değil, ihtiyaca bak.`
 },
 {
 title:"Kontrol hissi",
 subtitle:"Yön ver",
-remind:"Belirsizlik gerilim yaratır."
+remind:`İnsan çözümden önce kontrol ister.
+
+Belirsizlik gerilim yaratır.
+
+Şunu söyle:
+Şu an şu aşamadayız...
+
+Bu cümle bile ortamı değiştirir.`
 },
 {
 title:"Hayır demek",
 subtitle:"İlişkiyi koru",
-remind:"Sınır koy, alternatif sun."
+remind:`Hayır demek sorun değildir.
+Müşteriyi boşlukta bırakmak sorundur.
+
+Sıra:
+Anla → Sınır koy → Alternatif sun
+
+İlişki burada korunur.`
 },
 {
 title:"Temsil",
 subtitle:"Sen kurumsun",
-remind:"Dil güven üretir."
+remind:`Sen sadece kendini değil, kurumu temsil ediyorsun.
+
+Kullandığın dil güven üretir ya da zedeler.
+
+Müşteri senin niyetini değil,
+davranışını hatırlar.`
 },
 {
 title:"Son izlenim",
 subtitle:"Son cümle önemli",
-remind:"Nasıl bitirdiğin kalır."
+remind:`Müşteri sürecin tamamını hatırlamaz.
+Çoğu zaman son hissi hatırlar.
+
+Son cümlen,
+nasıl hatırlandığını belirler.`
 }
 ];
 
