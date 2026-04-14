@@ -1,801 +1,286 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Müşteri Deneyimi Atölyesi</title>
-  <meta name="theme-color" content="#003B7A" />
-  <style>
-    :root{
-      --navy:#003B7A;
-      --navy-2:#0f4b8c;
-      --light:#F7FAFC;
-      --line:#E5E7EB;
-      --text:#0F172A;
-      --muted:#64748B;
-      --success:#0F766E;
-      --white:#FFFFFF;
-      --shadow:0 10px 30px rgba(15, 23, 42, 0.08);
-      --radius-xl:24px;
-      --radius-lg:18px;
-      --radius-md:14px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Müşteri Deneyimi Atölyesi</title>
 
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family: Arial, Helvetica, sans-serif;
-      color:var(--text);
-      background:var(--light);
-      -webkit-user-select:none;
-      user-select:none;
-    }
-
-    img, button {
-      -webkit-user-drag:none;
-    }
-
-    .page{
-      min-height:100vh;
-    }
-
-    .wrap{
-      max-width:1200px;
-      margin:0 auto;
-      padding:16px;
-    }
-
-    .card{
-      background:var(--white);
-      border:1px solid var(--line);
-      border-radius:var(--radius-xl);
-      box-shadow:var(--shadow);
-    }
-
-    .hidden{display:none !important}
-
- .topbar{
-  background:transparent;
-  border-bottom:none;
+<style>
+:root{
+--navy:#003B7A;
+--light:#F7FAFC;
+--line:#E5E7EB;
+--text:#0F172A;
+--white:#FFFFFF;
+--shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
-    .hero{
-      background:var(--navy);
-      color:var(--white);
-      padding:24px;
-      border-radius:28px;
-      border:none;
-    }
+body{
+font-family:Arial;
+margin:0;
+background:var(--light);
+color:var(--text);
+user-select:none;
+}
 
-    .eyebrow{
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      opacity:.8;
-      margin-bottom:8px;
-    }
+.wrap{max-width:1100px;margin:auto;padding:16px;}
 
-    h1{
-      margin:0 0 10px 0;
-      font-size:32px;
-      line-height:1.15;
-    }
+.card{
+background:#fff;
+border-radius:20px;
+padding:20px;
+margin-top:16px;
+box-shadow:var(--shadow);
+}
 
-    .hero p{
-      margin:0;
-      line-height:1.65;
-      color:rgba(255,255,255,.92);
-    }
+.hero{
+background:var(--navy);
+color:#fff;
+padding:24px;
+border-radius:24px;
+}
 
-    .grid-hero{
-      display:grid;
-      grid-template-columns: 1fr 280px;
-      gap:16px;
-      margin-top:18px;
-    }
+h1{margin:0 0 10px 0}
 
-    .glass{
-      background:rgba(255,255,255,.10);
-      border-radius:18px;
-      padding:16px;
-    }
+.btn{
+background:var(--navy);
+color:#fff;
+border:none;
+padding:10px 14px;
+border-radius:12px;
+cursor:pointer;
+margin-top:10px;
+}
 
-    .mini{
-      font-size:12px;
-      color:var(--muted);
-    }
+.btn-outline{
+border:1px solid var(--navy);
+background:#fff;
+color:var(--navy);
+padding:10px;
+border-radius:12px;
+cursor:pointer;
+}
 
-    .hero .mini{
-      color:rgba(255,255,255,.78);
-    }
+.btn-outline.active{
+background:var(--navy);
+color:#fff;
+}
 
-    .progress-track{
-      width:100%;
-      height:8px;
-      border-radius:999px;
-      background:rgba(255,255,255,.24);
-      overflow:hidden;
-      margin-top:8px;
-    }
+.choice-row{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
 
-    .progress-fill{
-      height:100%;
-      width:0%;
-      background:#fff;
-      transition:width .25s ease;
-    }
+.topics{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:16px;
+}
 
-    .progress-meta{
-      display:flex;
-      justify-content:space-between;
-      margin-top:10px;
-      font-size:14px;
-      color:#fff;
-    }
+.topic{
+border:1px solid var(--line);
+border-radius:16px;
+padding:16px;
+}
 
-    .toolbar{
-      margin-top:16px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
+.topic.highlight{
+border:2px solid var(--navy);
+}
 
-    .btn{
-      border:none;
-      background:var(--navy);
-      color:#fff;
-      padding:12px 16px;
-      border-radius:16px;
-      cursor:pointer;
-      font-weight:700;
-      font-size:14px;
-      transition:.2s ease;
-    }
+.subtitle{
+font-size:13px;
+color:#64748B;
+margin-bottom:10px;
+}
 
-    .btn:hover{transform:translateY(-1px); background:var(--navy-2)}
+.check{
+border:1px solid var(--line);
+padding:10px;
+border-radius:10px;
+cursor:pointer;
+margin-top:10px;
+}
 
-    .btn-light{
-      background:#fff;
-      color:var(--text);
-    }
+.check.active{
+background:#F0F6FF;
+border-color:var(--navy);
+}
 
-    .btn-light:hover{background:#f3f4f6}
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:flex;
+align-items:center;
+justify-content:center;
+}
 
-    .btn-outline{
-      border:1px solid var(--navy);
-      background:#fff;
-      color:var(--navy);
-    }
+.modal{
+background:#fff;
+padding:20px;
+border-radius:16px;
+max-width:600px;
+width:90%;
+}
 
-    .btn-outline.active{
-      background:var(--navy);
-      color:#fff;
-    }
-
-    .section-card{
-      margin-top:16px;
-      padding:18px;
-    }
-
-    .choice-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:10px;
-    }
-
-    .topics-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:16px;
-      margin-top:16px;
-    }
-
-    .topic-card{
-      padding:20px;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-      min-height:100%;
-      transition:.2s ease;
-    }
-
-    .topic-card.highlight{
-      border:2px solid var(--navy);
-    }
-
-    .topic-title{
-      margin:0;
-      font-size:22px;
-      line-height:1.3;
-      color:var(--navy);
-    }
-
-    .badge{
-      display:inline-block;
-      width:max-content;
-      background:var(--navy);
-      color:#fff;
-      border-radius:999px;
-      font-size:12px;
-      padding:6px 10px;
-      margin-top:8px;
-    }
-
-    .check-card{
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:14px;
-      cursor:pointer;
-      font-size:14px;
-      color:#334155;
-      background:#fff;
-    }
-
-    .check-card.checked{
-      border-color:rgba(0,59,122,.35);
-      background:#F8FBFF;
-    }
-
-    .check-line{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-    }
-
-    .check-icon{
-      color:var(--navy);
-      font-weight:700;
-      min-width:20px;
-    }
-
-    textarea{
-      width:100%;
-      min-height:120px;
-      resize:vertical;
-      border:1px solid #D1D5DB;
-      border-radius:16px;
-      padding:12px;
-      font:inherit;
-      color:var(--text);
-      background:#fff;
-    }
-
-    textarea:focus,
-    input:focus{
-      outline:none;
-      border-color:var(--navy);
-      box-shadow:0 0 0 3px rgba(0,59,122,.12);
-    }
-
-    .login-shell{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      background:var(--light);
-    }
-
-    .login-box{
-      width:100%;
-      max-width:430px;
-      overflow:hidden;
-    }
-
-    .login-head{
-      background:var(--navy);
-      color:#fff;
-      padding:24px;
-    }
-
-    .login-body{
-      padding:24px;
-    }
-
-    .input{
-      width:100%;
-      border:1px solid #D1D5DB;
-      border-radius:14px;
-      padding:12px;
-      font:inherit;
-    }
-
-    .error{
-      color:#DC2626;
-      font-size:14px;
-      margin-top:10px;
-    }
-
-    .footer{
-      border-top:1px solid var(--line);
-      background:var(--light);
-      margin-top:24px;
-    }
-
-    .footer .wrap{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      font-size:14px;
-      color:#475569;
-      padding-top:18px;
-      padding-bottom:18px;
-    }
-
-    .overlay{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.58);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:100;
-    }
-
-    .modal{
-      width:100%;
-      max-width:760px;
-      overflow:hidden;
-      animation:pop .18s ease;
-    }
-
-    .modal-head{
-      background:var(--navy);
-      color:#fff;
-      padding:20px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-    }
-
-    .modal-title{
-      font-size:28px;
-      font-weight:700;
-      margin-top:4px;
-    }
-
-    .modal-body{
-      padding:20px;
-      color:#334155;
-      line-height:1.8;
-    }
-
-    .modal-body pre{
-      margin:0;
-      white-space:pre-wrap;
-      font:inherit;
-      line-height:1.8;
-    }
-
-    .modal-actions{
-      display:flex;
-      justify-content:flex-end;
-      margin-top:16px;
-    }
-
-    .close-x{
-      border:none;
-      background:transparent;
-      color:#fff;
-      font-size:24px;
-      cursor:pointer;
-      line-height:1;
-    }
-
-    .crisis-step{
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:14px;
-      margin-bottom:12px;
-      background:#fff;
-    }
-
-    @keyframes pop{
-      from{transform:scale(.97); opacity:0}
-      to{transform:scale(1); opacity:1}
-    }
-
-    @media (max-width: 900px){
-      .grid-hero{
-        grid-template-columns:1fr;
-      }
-      h1{
-        font-size:28px;
-      }
-    }
-
-    @media (max-width: 540px){
-      .wrap{
-        padding:12px;
-      }
-      .hero{
-        padding:18px;
-        border-radius:22px;
-      }
-      .section-card,
-      .topic-card{
-        padding:16px;
-      }
-      .topic-title{
-        font-size:20px;
-      }
-      .modal-title{
-        font-size:24px;
-      }
-    }
-  </style>
+.hidden{display:none}
+</style>
 </head>
-<body oncontextmenu="return false;">
 
-  <div id="loginPage" class="login-shell">
-    <div class="card login-box">
-      <div class="login-head">
-        <div class="eyebrow">Şifreli erişim</div>
-        <h1 style="font-size:30px;margin:0 0 10px 0;">Müşteri Deneyimi Atölyesi</h1>
-        <p style="margin:0;line-height:1.6;color:rgba(255,255,255,.92)">
-          Bu davranış uygulama alanı, eğitimde konuşulan içeriği günlük hayatta yaşatmak için hazırlandı.
-        </p>
-      </div>
-      <div class="login-body">
-        <input id="passwordInput" class="input" type="password" placeholder="Şifre" />
-        <button id="loginBtn" class="btn" style="width:100%;margin-top:14px;">Giriş</button>
-        <div id="loginError" class="error hidden">Şifre hatalı.</div>
-        <div style="border-top:1px solid var(--line);margin-top:16px;padding-top:12px;font-size:12px;color:#64748B">
-          <div><strong>2K Eğitim Danışmanlık / Koray Karataş</strong></div>
-          <div>Bu dijital çalışma alanı Müşteri Deneyimi Atölyesi için hazırlanmıştır.</div>
-        </div>
-      </div>
-    </div>
-  </div>
+<body>
 
-  <div id="appPage" class="page hidden">
-    <div class="topbar">
-      <div class="wrap">
-        <div class="hero card">
-          <div class="eyebrow">2K Eğitim Danışmanlık / Koray Karataş</div>
-          <h1>Müşteri Deneyimi Atölyesi Davranış Uygulama Alanı</h1>
-          <p>
-            Bu çalışma sana yeni bir şey öğretmek için değil, bildiğin şeyi hatırlatmak için hazırlandı.
-            Çünkü müşteri değişmeyecek. Yoğunluk değişmeyecek. Şartlar çoğu zaman değişmeyecek.
-            Ama sen, aynı durumun içinde nasıl davrandığını değiştirebilirsin. Buradaki başlıklar sana
-            şunu hatırlatır: Tepki vermek zorunda değilsin. Davranışını seçebilirsin. Bu fark, sadece iş
-            hayatında değil; özel hayatında, ilişkilerinde ve kendinle olan temasında da kendini gösterir.
-          </p>
+<div class="wrap">
 
-          <div class="grid-hero">
-            <div class="glass">
-              <div id="rotatingPrompt" style="font-size:15px;color:rgba(255,255,255,.92)"></div>
-              <div class="mini" style="margin-top:8px;">
-                Bugün kendine hangi alanda daha bilinçli katkı verdiğini seç ve işaretle.
-              </div>
-            </div>
-            <div class="glass">
-              <div class="mini">Bugün kendine katkı sağladığın alanlar</div>
-              <div class="progress-track">
-                <div id="progressFill" class="progress-fill"></div>
-              </div>
-              <div class="progress-meta">
-                <span id="progressPercent">%0</span>
-                <span id="progressLabel">Başlamadım</span>
-              </div>
-            </div>
-          </div>
+<div class="hero">
+<h1>Müşteri Deneyimi Davranış Alanı</h1>
+<p>
+Bu alan yeni bir şey öğretmek için değil,
+bildiğini hatırlatmak için hazırlandı.
+</p>
+<button id="crisisBtn" class="btn">Zor andayım</button>
+</div>
 
-          <div class="toolbar">
-            <button id="crisisBtn" class="btn btn-light">Zor andayım</button>
-          </div>
-        </div>
+<div class="card">
+<b>Bugün daha çok ne yaşadın?</b>
+<div id="choices" class="choice-row"></div>
+</div>
 
-        <div class="card section-card">
-          <div style="font-weight:700;color:var(--navy);margin-bottom:12px;">Bugün daha çok ne yaşadın?</div>
-          <div id="choiceRow" class="choice-row"></div>
-          <div class="mini" style="margin-top:10px;">
-            Birini seçersen, sana en çok temas edebilecek başlıklar öne çıkarılır.
-          </div>
-        </div>
-      </div>
-    </div>
+<div id="topics" class="topics"></div>
 
-    <div class="wrap">
-      <div id="topicsGrid" class="topics-grid"></div>
-    </div>
+</div>
 
-    <div class="footer">
-      <div class="wrap">
-        <div><strong>2K Eğitim Danışmanlık / Koray Karataş</strong></div>
-        <div>Bu dijital çalışma alanı <strong>Müşteri Deneyimi Atölyesi</strong> için hazırlanmıştır.</div>
-      </div>
-    </div>
-  </div>
+<!-- MODAL -->
+<div id="modal" class="overlay hidden">
+<div class="modal">
+<h3 id="modalTitle"></h3>
+<p id="modalText"></p>
+<button onclick="closeModal()" class="btn">Kapat</button>
+</div>
+</div>
 
-  <div id="reminderOverlay" class="overlay hidden">
-    <div class="card modal">
-      <div class="modal-head">
-        <div>
-          <div style="font-size:14px;opacity:.82;">Mini eğitim dönüşü</div>
-          <div class="modal-title">Bana hatırlat</div>
-        </div>
-        <button class="close-x" data-close="reminderOverlay">×</button>
-      </div>
-      <div class="modal-body">
-        <pre id="reminderText"></pre>
-        <div class="modal-actions">
-          <button class="btn" data-close="reminderOverlay">Kapat</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<script>
 
-  <div id="crisisOverlay" class="overlay hidden">
-    <div class="card modal" style="max-width:620px;">
-      <div class="modal-head">
-        <div>
-          <div style="font-size:14px;opacity:.82;">Hızlı reset</div>
-          <div class="modal-title">Zor an modu</div>
-        </div>
-        <button class="close-x" data-close="crisisOverlay">×</button>
-      </div>
-      <div class="modal-body">
-        <div class="crisis-step"><strong>1.</strong> Dur. Şu an tepki vermek zorunda değilsin.</div>
-        <div class="crisis-step"><strong>2.</strong> Bu olay mı, yoksa benim yorumum mu?</div>
-        <div class="crisis-step"><strong>3.</strong> Şu an ben ne yaşıyorum? Geriliyor muyum, hızlanıyor muyum, savunmaya mı geçiyorum?</div>
-        <div class="crisis-step"><strong>4.</strong> İlk cümlemi bilinçli seçiyorum. Ortamı yükseltmeyecek, yön verecek cümleyi kuruyorum.</div>
-        <div class="modal-actions">
-          <button class="btn" data-close="crisisOverlay">Geri dön</button>
-        </div>
-      </div>
-    </div>
-  </div>
+const topics = [
+{
+title:"Tetikleyiciyi fark etmek",
+subtitle:"İçeride ne çalışıyor?",
+remind:"Olay değil, yorum seni zorlar."
+},
+{
+title:"Olay – Yorum – Duygu",
+subtitle:"Zinciri yakala",
+remind:"Yorumu yakalarsan duyguyu değiştirirsin."
+},
+{
+title:"3A modeli",
+subtitle:"Araya gir",
+remind:"An – Ayna – Ayar ile davranışını seç."
+},
+{
+title:"Dinlemek",
+subtitle:"Yavaşla",
+remind:"Anlaşıldığını hisseden müşteri sakinleşir."
+},
+{
+title:"İhtiyaç",
+subtitle:"Altını gör",
+remind:"Davranışın altında ihtiyaç vardır."
+},
+{
+title:"Kontrol hissi",
+subtitle:"Yön ver",
+remind:"Belirsizlik gerilim yaratır."
+},
+{
+title:"Hayır demek",
+subtitle:"İlişkiyi koru",
+remind:"Sınır koy, alternatif sun."
+},
+{
+title:"Temsil",
+subtitle:"Sen kurumsun",
+remind:"Dil güven üretir."
+},
+{
+title:"Son izlenim",
+subtitle:"Son cümle önemli",
+remind:"Nasıl bitirdiğin kalır."
+}
+];
 
-  <script>
-    const PASSWORD = "2468";
-    const NAVY = "#003B7A";
+const choices = [
+{ id:0, label:"Zor müşteri", topics:[0,1,2]},
+{ id:1, label:"Yoğunluk", topics:[0,3,4]},
+{ id:2, label:"Belirsizlik", topics:[1,5]},
+{ id:3, label:"İtiraz", topics:[2,6]}
+];
 
-    const rotatingPrompts = [
-      "Bugün hangi alanda daha bilinçli davrandığını düşünüyorsun?",
-      "Bugün hangi anda otomatik tepki yerine seçim yaptın?",
-      "Bugün hangi davranışınla fark yarattığını düşünüyorsun?",
-      "Bugün hangi yerde kendini biraz daha iyi yönettin?"
-    ];
+let selected=null;
+let checks={};
 
-    const smartChoices = [
-      { id: "zor_musteri", label: "Zor müşteriyle karşılaştım", topics: [0,1,2,4,6,9] },
-      { id: "hiz_yogunluk", label: "Yoğunluk ve hız beni zorladı", topics: [0,1,2,3,7,9] },
-      { id: "belirsizlik", label: "Belirsizlik yaşadım", topics: [1,2,4,5,7,8,9] },
-      { id: "itiraz_hayir", label: "İtiraz / hayır durumu yaşadım", topics: [0,1,2,5,6,7,9] }
-    ];
+function renderChoices(){
+const el=document.getElementById("choices");
+el.innerHTML="";
+choices.forEach(c=>{
+const b=document.createElement("button");
+b.className="btn-outline";
+if(selected===c.id) b.classList.add("active");
+b.innerText=c.label;
+b.onclick=()=>{
+selected=selected===c.id?null:c.id;
+renderChoices();
+renderTopics();
+};
+el.appendChild(b);
+});
+}
 
-    const topics = [
-      {
-        title: "Tetikleyiciyi fark etmek",
-        remind: `Müşteri seni zorlamıyor.\nSen, onun davranışına yüklediğin anlamla zorlanıyorsun.\n\nAynı durum, farklı insanlarda farklı etki yaratır.\nÇünkü farkı yaratan olay değil, yorumdur.\n\nŞimdi dur ve şunu sor:\nBen şu an neyi büyütüyorum?`,
-        placeholder: "Bugün seni en çok ne tetikledi? O anda içinden geçen ilk yorum neydi?"
-      },
-      {
-        title: "Olay – Yorum – Duygu – Tepki zinciri",
-        remind: `Olan şey olaydır.\nSenin söylediğin yorumdur.\nHissettiğin duygu, yorumunun sonucudur.\nTepkin ise bu zincirin son halkasıdır.\n\nZinciri kırmak istiyorsan, yorumla tepkinin arasına gir.\n1 saniye dur.\nŞunu sor: Bu kesin bilgi mi, benim yorumum mu?\n\nDavranış orada değişir.`,
-        placeholder: "Bugün hangi olayda yorumun devreye girdi? Yorumla tepkin arasına girebildin mi?"
-      },
-      {
-        title: "3A ile araya girmek (An – Ayna – Ayar)",
-        remind: `3A, olay–yorum–duygu–tepki zincirine araya girmeni sağlar.\n\nAn: Şu an ben ne yaşıyorum? Geriliyor muyum, hızlanıyor muyum, savunmaya mı geçiyorum?\nAyna: Ben bu duruma ne anlam yüklüyorum?\nAyar: Şimdi nasıl davranmayı seçiyorum?\n\n3A kendini bastırmak için değil, davranışı bilinçli seçmek için vardır.`,
-        placeholder: "Bugün hangi anda An’ı, Ayna’yı ya da Ayar’ı kullandın?"
-      },
-      {
-        title: "Dinlemeyi yavaşlatmak",
-        remind: `Dinlemek cevap vermek değildir.\nDinlemek anlamaktır.\n\nİnsan anlaşıldığını hissettiğinde gerilim düşer.\n\nBugün sadece şunu dene:\nDoğru anladıysam...`,
-        placeholder: "Bugün gerçekten dinledin mi, yoksa cevap mı hazırladın?"
-      },
-      {
-        title: "Gerçek ihtiyacı yakalamak",
-        remind: `Müşteri ne istediğini söyler, ama neye ihtiyaç duyduğunu her zaman net söyleyemez.\n\nDavranışın altına bak:\nSinir → anlaşılmama\nTelaş → belirsizlik\nTekrar → güven ihtiyacı\n\nEtikete değil, ihtiyaca bak.`,
-        placeholder: "Bugün bir davranışın altındaki gerçek ihtiyacı görebildin mi?"
-      },
-      {
-        title: "Kontrol hissi vermek",
-        remind: `İnsan çözümden önce kontrol ister.\n\nBelirsizlik gerilim yaratır.\n\nŞunu söyle:\nŞu an şu aşamadayız...\n\nBu cümle bile ortamı değiştirir.`,
-        placeholder: "Bugün belirsizliği azaltmak için hangi cümleyi kullandın?"
-      },
-      {
-        title: "Hayır derken ilişkiyi korumak",
-        remind: `Hayır demek sorun değildir.\nMüşteriyi boşlukta bırakmak sorundur.\n\nSıra:\nAnla → Sınır koy → Alternatif sun\n\nİlişki burada korunur.`,
-        placeholder: "Bugün hayır demen gereken bir anda ilişkiyi koruyabildin mi?"
-      },
-      {
-        title: "Temsil ve kurum dili",
-        remind: `Sen sadece kendini değil, kurumu temsil ediyorsun.\n\nKullandığın dil güven üretir ya da zedeler.\n\nNetlik, sahiplenme ve açıklık müşterinin zihninde güven oluşturur.`,
-        placeholder: "Bugün hangi cümlen temsil gücünü artırdı ya da azalttı?"
-      },
-      {
-        title: "Son izlenimi yönetmek",
-        remind: `Müşteri sürecin tamamını hatırlamaz.\nÇoğu zaman son hissi hatırlar.\n\nSon cümlen, temasın hafızada kalan yeridir.\n\nNasıl bitirdiğin, nasıl hatırlandığını belirler.`,
-        placeholder: "Bugün son cümleni bilinçli kurduğun bir an oldu mu?"
-      },
-      {
-        title: "Zor an protokolü",
-        remind: `Zor an geldiğinde karmaşık düşünme.\n\nDur → İsmini koy → İlk cümleyi seç\n\nDur: Hemen tepki verme.\nİsmini koy: Şu an gerildim / hızlandım / savunmaya geçtim.\nİlk cümleyi seç: Ortamı yükseltmeyecek, yön verecek cümleyi kur.`,
-        placeholder: "Bugün zor bir anda durup kendini yakalayabildin mi?"
-      }
-    ];
+function renderTopics(){
+const el=document.getElementById("topics");
+el.innerHTML="";
+const active=selected!==null ? choices.find(c=>c.id===selected).topics : [];
 
-    const els = {
-      loginPage: document.getElementById("loginPage"),
-      appPage: document.getElementById("appPage"),
-      passwordInput: document.getElementById("passwordInput"),
-      loginBtn: document.getElementById("loginBtn"),
-      loginError: document.getElementById("loginError"),
-      rotatingPrompt: document.getElementById("rotatingPrompt"),
-      progressFill: document.getElementById("progressFill"),
-      progressPercent: document.getElementById("progressPercent"),
-      progressLabel: document.getElementById("progressLabel"),
-      choiceRow: document.getElementById("choiceRow"),
-      topicsGrid: document.getElementById("topicsGrid"),
-      reminderOverlay: document.getElementById("reminderOverlay"),
-      reminderText: document.getElementById("reminderText"),
-      crisisBtn: document.getElementById("crisisBtn"),
-      crisisOverlay: document.getElementById("crisisOverlay")
-    };
+topics.forEach((t,i)=>{
+const div=document.createElement("div");
+div.className="topic"+(active.includes(i)?" highlight":"");
 
-    let notes = {};
-    let checks = {};
-    let selectedChoice = null;
+div.innerHTML=`
+<h3>${t.title}</h3>
+<div class="subtitle">${t.subtitle}</div>
+<div class="check ${checks[i]?"active":""}" onclick="toggle(${i})">
+${checks[i]?"✔":"○"} Bugün kullandım
+</div>
+<button class="btn" onclick="openModal(${i})">Bana hatırlat</button>
+`;
 
-    function loadLS(key, fallback){
-      try{
-        const raw = localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : fallback;
-      }catch{
-        return fallback;
-      }
-    }
+el.appendChild(div);
+});
+}
 
-    function saveLS(key, value){
-      localStorage.setItem(key, JSON.stringify(value));
-    }
+function toggle(i){
+checks[i]=!checks[i];
+renderTopics();
+}
 
-    function updateProgress(){
-      const completedCount = Object.values(checks).filter(Boolean).length;
-      const progress = Math.min(100, Math.round((completedCount / topics.length) * 100));
-      let label = "Başlamadım";
-      if(completedCount > 0 && completedCount <= 2) label = "Fark ettim";
-      else if(completedCount <= 5 && completedCount > 2) label = "Uyguladım";
-      else if(completedCount > 5) label = "Daha bilinçliydim";
+function openModal(i){
+document.getElementById("modalTitle").innerText=topics[i].title;
+document.getElementById("modalText").innerText=topics[i].remind;
+document.getElementById("modal").classList.remove("hidden");
+}
 
-      els.progressFill.style.width = progress + "%";
-      els.progressPercent.textContent = "%" + progress;
-      els.progressLabel.textContent = label;
-    }
+function closeModal(){
+document.getElementById("modal").classList.add("hidden");
+}
 
-    function renderPrompt(){
-      const idx = new Date().getDate() % rotatingPrompts.length;
-      els.rotatingPrompt.textContent = rotatingPrompts[idx];
-    }
+document.getElementById("crisisBtn").onclick=()=>{
+openModal(2);
+};
 
-    function renderChoices(){
-      els.choiceRow.innerHTML = "";
-      smartChoices.forEach(choice => {
-        const btn = document.createElement("button");
-        btn.className = "btn-outline";
-        if(selectedChoice === choice.id) btn.classList.add("active");
-        btn.textContent = choice.label;
-        btn.onclick = () => {
-          selectedChoice = selectedChoice === choice.id ? null : choice.id;
-          renderChoices();
-          renderTopics();
-        };
-        els.choiceRow.appendChild(btn);
-      });
-    }
+renderChoices();
+renderTopics();
 
-    function renderTopics(){
-      els.topicsGrid.innerHTML = "";
-      const highlightedTopics = selectedChoice
-        ? (smartChoices.find(c => c.id === selectedChoice)?.topics || [])
-        : [];
+</script>
 
-      topics.forEach((topic, i) => {
-        const key = "topic-" + i;
-        const isHighlighted = highlightedTopics.includes(i);
-        const checked = !!checks[key];
-        const note = notes[key] || "";
-
-        const card = document.createElement("div");
-        card.className = "card topic-card" + (isHighlighted ? " highlight" : "");
-
-        const title = document.createElement("h2");
-        title.className = "topic-title";
-        title.textContent = topic.title;
-        card.appendChild(title);
-
-        if(isHighlighted){
-          const badge = document.createElement("div");
-          badge.className = "badge";
-          badge.textContent = "Bugün sana yakın olabilir";
-          card.appendChild(badge);
-        }
-
-        const checkCard = document.createElement("div");
-        checkCard.className = "check-card" + (checked ? " checked" : "");
-        checkCard.onclick = () => {
-          checks[key] = !checks[key];
-          saveLS("mda_checks", checks);
-          renderTopics();
-          updateProgress();
-        };
-        checkCard.innerHTML = `
-          <div class="check-line">
-            <div class="check-icon">${checked ? "✔" : "○"}</div>
-            <div>Bugün bu başlık bana katkı sağladı / bunu kullandım</div>
-          </div>
-        `;
-        card.appendChild(checkCard);
-
-        const textarea = document.createElement("textarea");
-        textarea.placeholder = topic.placeholder;
-        textarea.value = note;
-        textarea.oninput = (e) => {
-          notes[key] = e.target.value;
-          saveLS("mda_notes", notes);
-        };
-        card.appendChild(textarea);
-
-        const remindBtn = document.createElement("button");
-        remindBtn.className = "btn";
-        remindBtn.textContent = "Bana hatırlat";
-        remindBtn.onclick = () => {
-          els.reminderText.textContent = topic.remind;
-          els.reminderOverlay.classList.remove("hidden");
-        };
-        card.appendChild(remindBtn);
-
-        els.topicsGrid.appendChild(card);
-      });
-    }
-
-    function init(){
-      notes = loadLS("mda_notes", {});
-      checks = loadLS("mda_checks", {});
-      renderPrompt();
-      renderChoices();
-      renderTopics();
-      updateProgress();
-    }
-
-    els.loginBtn.onclick = () => {
-      if(els.passwordInput.value === PASSWORD){
-        els.loginPage.classList.add("hidden");
-        els.appPage.classList.remove("hidden");
-        init();
-      }else{
-        els.loginError.classList.remove("hidden");
-      }
-    };
-
-    els.passwordInput.addEventListener("keydown", (e) => {
-      if(e.key === "Enter") els.loginBtn.click();
-    });
-
-    els.crisisBtn.onclick = () => {
-      els.crisisOverlay.classList.remove("hidden");
-    };
-
-    document.querySelectorAll("[data-close]").forEach(btn => {
-      btn.onclick = () => {
-        const id = btn.getAttribute("data-close");
-        document.getElementById(id).classList.add("hidden");
-      };
-    });
-
-    els.reminderOverlay.onclick = (e) => {
-      if(e.target === els.reminderOverlay) els.reminderOverlay.classList.add("hidden");
-    };
-    els.crisisOverlay.onclick = (e) => {
-      if(e.target === els.crisisOverlay) els.crisisOverlay.classList.add("hidden");
-    };
-  </script>
 </body>
 </html>
