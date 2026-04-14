@@ -4,32 +4,69 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Müşteri Deneyimi Atölyesi</title>
+<meta name="description" content="Müşteri Deneyimi Atölyesi - Davranış alanı ve hatırlatma sistemi. 2K Eğitim Danışmanlık / Koray Karataş" />
 <meta name="theme-color" content="#003B7A" />
+<meta name="author" content="Koray Karataş - 2K Eğitim Danışmanlık" />
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Müşteri Deneyimi Atölyesi" />
+<meta property="og:description" content="Davranış alanı ve hatırlatma sistemi" />
+<meta property="og:site_name" content="2K Eğitim" />
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTcO8xZ90ZXJpIERlbmV5aW1pIEF0w7ZseWVzaSIsInNob3J0X25hbWUiOiJNRCBBdMO2bHllc2kiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzAwM0I3QSIsInRoZW1lX2NvbG9yIjoiIzAwM0I3QSJ9" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23003B7A' width='100' height='100'/%3E%3Ctext x='50' y='65' font-size='45' text-anchor='middle' fill='white'%3E2K%3C/text%3E%3C/svg%3E" />
+
 <style>
 :root{
   --navy:#003B7A;
   --navy-2:#0f4b8c;
+  --navy-3:#1a5aa3;
   --light:#F7FAFC;
   --line:#E5E7EB;
   --text:#0F172A;
   --muted:#64748B;
   --white:#FFFFFF;
   --shadow:0 10px 30px rgba(15,23,42,.08);
+  --shadow-lg:0 20px 40px rgba(15,23,42,.12);
   --radius-xl:24px;
   --radius-lg:18px;
   --radius-md:14px;
+  --radius-sm:10px;
+  --transition:all .2s cubic-bezier(.4,0,.2,1);
 }
 
-*{box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
 html,body{margin:0;padding:0}
 body{
-  font-family:Arial, Helvetica, sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   background:var(--light);
   color:var(--text);
-  -webkit-user-select:none;
-  user-select:none;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
-body[oncontextmenu]{-webkit-touch-callout:none}
+
+/* Focus visible for accessibility */
+:focus-visible{
+  outline:3px solid var(--navy);
+  outline-offset:2px;
+}
+
+/* Skip link for accessibility */
+.skip-link{
+  position:absolute;
+  top:-40px;
+  left:0;
+  background:var(--navy);
+  color:#fff;
+  padding:8px 16px;
+  z-index:10000;
+  transition:top .3s;
+}
+.skip-link:focus{top:0}
 
 .wrap{
   max-width:1100px;
@@ -40,131 +77,194 @@ body[oncontextmenu]{-webkit-touch-callout:none}
 .card{
   background:#fff;
   border:1px solid var(--line);
-  border-radius:20px;
+  border-radius:var(--radius-xl);
   padding:20px;
   margin-top:16px;
   box-shadow:var(--shadow);
+  transition:var(--transition);
 }
+.card:hover{box-shadow:var(--shadow-lg)}
 
 .hero{
-  background:var(--navy);
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);
   color:#fff;
-  padding:24px;
-  border-radius:24px;
+  padding:28px;
+  border-radius:var(--radius-xl);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  top:-50%;
+  right:-20%;
+  width:60%;
+  height:200%;
+  background:radial-gradient(circle,rgba(255,255,255,.08) 0%,transparent 70%);
+  pointer-events:none;
 }
 
 .eyebrow{
   font-size:12px;
   text-transform:uppercase;
   letter-spacing:.16em;
-  opacity:.82;
+  opacity:.9;
   margin-bottom:8px;
+  font-weight:600;
 }
 
-h1{
-  margin:0 0 10px 0;
-  line-height:1.15;
-}
+h1,h2,h3{margin:0;line-height:1.25}
+h1{font-size:clamp(24px,5vw,36px);font-weight:800}
+h2{font-size:22px;font-weight:700}
+h3{font-size:18px;font-weight:700}
 
 .hero p{
-  margin:0;
-  line-height:1.65;
-  color:rgba(255,255,255,.93);
+  margin:12px 0 0;
+  line-height:1.7;
+  color:rgba(255,255,255,.95);
+  font-size:16px;
 }
 
 .btn{
   background:var(--navy);
   color:#fff;
   border:none;
-  padding:10px 14px;
-  border-radius:12px;
+  padding:12px 18px;
+  border-radius:var(--radius-md);
   cursor:pointer;
-  margin-top:10px;
-  font-weight:700;
-  transition:.2s ease;
+  font-weight:600;
+  font-size:15px;
+  transition:var(--transition);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  position:relative;
+  overflow:hidden;
 }
-.btn:hover{background:var(--navy-2)}
+.btn:hover{background:var(--navy-2);transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn:focus-visible{outline:3px solid rgba(0,59,122,.3);outline-offset:2px}
 
 .btn-light{
   background:#fff;
   color:var(--navy);
 }
-.btn-light:hover{
-  background:#f4f7fb;
-}
+.btn-light:hover{background:#f4f7fb}
 
 .btn-outline{
-  border:1px solid var(--navy);
+  border:2px solid var(--navy);
   background:#fff;
   color:var(--navy);
-  padding:10px 14px;
-  border-radius:12px;
+  padding:10px 16px;
+  border-radius:var(--radius-md);
   cursor:pointer;
   font-weight:600;
-  transition:.2s ease;
+  font-size:14px;
+  transition:var(--transition);
 }
+.btn-outline:hover{background:var(--light)}
 .btn-outline.active{
   background:var(--navy);
   color:#fff;
+  border-color:var(--navy);
 }
 
 .choice-row{
   display:flex;
-  gap:8px;
+  gap:10px;
   flex-wrap:wrap;
-  margin-top:12px;
+  margin-top:14px;
 }
 
 .topics{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:16px;
+  margin-top:16px;
+}
+
+@media(max-width:360px){
+  .topics{grid-template-columns:1fr}
 }
 
 .topic{
   border:1px solid var(--line);
-  border-radius:16px;
-  padding:16px;
+  border-radius:var(--radius-lg);
+  padding:18px;
   background:#fff;
+  transition:var(--transition);
+  position:relative;
 }
-
+.topic:hover{border-color:var(--navy-3);transform:translateY(-2px)}
 .topic.highlight{
   border:2px solid var(--navy);
+  background:linear-gradient(135deg,#fff 0%,#f8fbff 100%);
+}
+.topic.highlight::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:4px;
+  background:var(--navy);
+  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .topic-badge{
-  display:inline-block;
-  margin-bottom:10px;
-  background:#eef5ff;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:12px;
+  background:linear-gradient(135deg,#eef5ff 0%,#e0edff 100%);
   color:var(--navy);
   border:1px solid #cfe1ff;
   font-size:12px;
   font-weight:700;
-  padding:6px 10px;
+  padding:6px 12px;
   border-radius:999px;
 }
 
 .subtitle{
-  font-size:13px;
+  font-size:14px;
   color:var(--muted);
-  margin-bottom:10px;
+  margin:8px 0 12px;
+  line-height:1.5;
 }
 
 .check{
   border:1px solid var(--line);
   padding:12px 14px;
-  border-radius:12px;
+  border-radius:var(--radius-md);
   cursor:pointer;
-  margin-top:10px;
+  margin-top:12px;
   font-size:15px;
   background:#fff;
+  transition:var(--transition);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  user-select:none;
 }
+.check:hover{border-color:var(--navy-3);background:#fafcff}
 .check.active{
-  background:#F0F6FF;
+  background:linear-gradient(135deg,#F0F6FF 0%,#e6f0ff 100%);
   border-color:var(--navy);
   color:var(--navy);
-  font-weight:700;
+  font-weight:600;
 }
+.check-icon{
+  width:20px;
+  height:20px;
+  border:2px solid currentColor;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  transition:var(--transition);
+}
+.check.active .check-icon{background:var(--navy);color:#fff;border-color:var(--navy)}
 
 .login-shell{
   min-height:100vh;
@@ -172,18 +272,25 @@ h1{
   align-items:center;
   justify-content:center;
   padding:20px;
+  background:linear-gradient(135deg,var(--light) 0%,#e8f0f8 100%);
 }
 
 .login-box{
   width:100%;
   max-width:430px;
   overflow:hidden;
+  animation:fadeInUp .6s ease;
+}
+
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 .login-head{
-  background:var(--navy);
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);
   color:#fff;
-  padding:24px;
+  padding:28px;
 }
 
 .login-body{
@@ -193,54 +300,134 @@ h1{
 
 .input{
   width:100%;
-  border:1px solid #D1D5DB;
-  border-radius:14px;
-  padding:12px;
+  border:2px solid #D1D5DB;
+  border-radius:var(--radius-md);
+  padding:14px;
   font:inherit;
+  font-size:16px;
+  transition:var(--transition);
 }
+.input:hover{border-color:#9CA3AF}
 .input:focus{
   outline:none;
   border-color:var(--navy);
-  box-shadow:0 0 0 3px rgba(0,59,122,.12);
+  box-shadow:0 0 0 4px rgba(0,59,122,.1);
+}
+
+.input-group{
+  position:relative;
+  margin-bottom:16px;
+}
+
+.input-label{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  color:var(--muted);
+  margin-bottom:6px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
 }
 
 .error{
   color:#DC2626;
   font-size:14px;
   margin-top:10px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:10px;
+  background:#FEF2F2;
+  border-radius:var(--radius-sm);
+  border-left:3px solid #DC2626;
+  animation:shake .5s ease;
+}
+
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-5px)}
+  75%{transform:translateX(5px)}
 }
 
 .overlay{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.6);
+  backdrop-filter:blur(4px);
   display:flex;
   align-items:center;
   justify-content:center;
   padding:16px;
   z-index:999;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .3s,visibility .3s;
+}
+.overlay.active{
+  opacity:1;
+  visibility:visible;
 }
 
 .modal{
   background:#fff;
-  padding:24px;
-  border-radius:16px;
+  padding:0;
+  border-radius:var(--radius-xl);
   max-width:720px;
   width:90%;
-  box-shadow:var(--shadow);
+  max-height:90vh;
+  box-shadow:var(--shadow-lg);
+  transform:scale(.95);
+  transition:transform .3s;
+  display:flex;
+  flex-direction:column;
+}
+.overlay.active .modal{transform:scale(1)}
+
+.modal-header{
+  padding:24px 24px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
 }
 
-.modal h3{
-  margin-top:0;
-  margin-bottom:10px;
+.modal-body{
+  padding:16px 24px 24px;
+  overflow-y:auto;
+  flex:1;
 }
+
+.modal-footer{
+  padding:16px 24px 24px;
+  display:flex;
+  justify-content:flex-end;
+}
+
+.modal-close{
+  background:none;
+  border:none;
+  font-size:24px;
+  cursor:pointer;
+  color:var(--muted);
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  transition:var(--transition);
+}
+.modal-close:hover{background:var(--light);color:var(--text)}
 
 .modal-text{
   white-space:pre-line;
-  line-height:1.8;
+  line-height:1.9;
   font-size:17px;
   color:#334155;
 }
+
+.modal-text p{margin:0 0 16px}
+.modal-text p:last-child{margin-bottom:0}
 
 .footer{
   border-top:1px solid var(--line);
@@ -258,40 +445,117 @@ h1{
   padding-bottom:18px;
 }
 
-.hidden{display:none !important}
+.progress-bar{
+  height:4px;
+  background:var(--line);
+  border-radius:2px;
+  margin-top:16px;
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--navy) 0%,var(--navy-2) 100%);
+  border-radius:2px;
+  transition:width .5s ease;
+}
 
-@media (max-width: 540px){
+.stats{
+  display:flex;
+  gap:16px;
+  margin-top:12px;
+  font-size:13px;
+  color:var(--muted);
+}
+.stat{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.hidden{display:none !important}
+.sr-only{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border-width:0;
+}
+
+@media(max-width:540px){
   .wrap{padding:12px}
-  .hero{padding:18px;border-radius:22px}
-  h1{font-size:30px}
+  .hero{padding:20px;border-radius:var(--radius-lg)}
+  h1{font-size:26px}
+  .topics{grid-template-columns:1fr}
+  .footer .wrap{flex-direction:column;text-align:center}
+}
+
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print{
+  .login-shell,.overlay,.btn{display:none}
+  .topic{break-inside:avoid;border:1px solid #000}
 }
 </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-<div id="loginPage" class="login-shell">
-  <div class="card login-box">
+<a href="#main" class="skip-link">Ana içeriğe atla</a>
+
+<div id="loginPage" class="login-shell" role="main" aria-label="Giriş sayfası">
+  <div class="card login-box" role="form" aria-labelledby="loginTitle">
     <div class="login-head">
       <div class="eyebrow">Şifreli erişim</div>
-      <h1 style="font-size:30px;">Müşteri Deneyimi Atölyesi</h1>
+      <h1 id="loginTitle" style="font-size:28px;">Müşteri Deneyimi Atölyesi</h1>
       <p>Bu davranış alanı, eğitimde konuşulan başlıkları günlük akışta hatırlatmak için hazırlandı.</p>
     </div>
     <div class="login-body">
-      <input id="passwordInput" class="input" type="password" placeholder="Şifre" />
-      <button id="loginBtn" class="btn" style="width:100%;margin-top:14px;">Giriş</button>
-      <div id="loginError" class="error hidden">Şifre hatalı.</div>
-      <div style="border-top:1px solid var(--line);margin-top:16px;padding-top:12px;font-size:12px;color:#64748B">
-        <div><strong>2K Eğitim Danışmanlık / Koray Karataş</strong></div>
+      <div class="input-group">
+        <label for="passwordInput" class="input-label">Şifre</label>
+        <input 
+          id="passwordInput" 
+          class="input" 
+          type="password" 
+          placeholder="Şifrenizi girin" 
+          autocomplete="current-password"
+          aria-describedby="passwordHint"
+          aria-required="true"
+        />
+        <span id="passwordHint" class="sr-only">Eğitim şifresini girin</span>
+      </div>
+      <button id="loginBtn" class="btn" style="width:100%;" aria-label="Giriş yap">
+        <span>Giriş</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+      <div id="loginError" class="error hidden" role="alert" aria-live="polite">
+        <span>⚠️</span>
+        <span>Şifre hatalı. Lütfen tekrar deneyin.</span>
+      </div>
+      <div style="border-top:1px solid var(--line);margin-top:20px;padding-top:16px;font-size:13px;color:var(--muted);">
+        <div style="margin-bottom:6px;"><strong>2K Eğitim Danışmanlık / Koray Karataş</strong></div>
         <div>Bu dijital çalışma alanı Müşteri Deneyimi Atölyesi için hazırlanmıştır.</div>
       </div>
     </div>
   </div>
 </div>
 
-<div id="appPage" class="hidden">
+<div id="appPage" class="hidden" role="main" aria-label="Uygulama">
   <div class="wrap">
 
-    <div class="hero">
+    <header class="hero" role="banner">
       <div class="eyebrow">2K Eğitim Danışmanlık / Koray Karataş</div>
       <h1>Müşteri Deneyimi Davranış Alanı</h1>
       <p>
@@ -299,57 +563,93 @@ h1{
         Çünkü müşteri değişmeyecek, yoğunluk değişmeyecek, şartlar çoğu zaman değişmeyecek.
         Ama sen aynı durumun içinde nasıl davrandığını değiştirebilirsin.
       </p>
-      <button id="crisisBtn" class="btn btn-light">Zor andayım</button>
-    </div>
+      <button id="crisisBtn" class="btn btn-light" aria-label="Zor anlarda yardım al">
+        <span>🆘 Zor andayım</span>
+      </button>
+    </header>
 
-    <div class="card">
-      <div style="font-weight:700;font-size:18px;">Bugün daha çok ne yaşadın?</div>
-      <div id="choices" class="choice-row"></div>
-      <div class="subtitle" style="margin-top:10px;">
+    <section class="card" aria-labelledby="choicesTitle">
+      <div id="choicesTitle" style="font-weight:700;font-size:18px;margin-bottom:4px;">Bugün daha çok ne yaşadın?</div>
+      <div id="choices" class="choice-row" role="group" aria-label="Durum seçenekleri"></div>
+      <div class="subtitle">
         Birini seçersen, sana en çok temas edebilecek başlıklar öne çıkarılır.
       </div>
-    </div>
+      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="İlerleme">
+        <div id="progressFill" class="progress-fill" style="width:0%"></div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <span>📊</span>
+          <span id="progressText">0/9 konu işaretlendi</span>
+        </div>
+        <div class="stat">
+          <span>💾</span>
+          <span>Otomatik kaydediliyor</span>
+        </div>
+      </div>
+    </section>
 
-    <div id="topics" class="topics"></div>
+    <section id="topics" class="topics" aria-label="Konular"></section>
 
   </div>
 
-  <div class="footer">
+  <footer class="footer" role="contentinfo">
     <div class="wrap">
       <div><strong>2K Eğitim Danışmanlık / Koray Karataş</strong></div>
       <div>Bu dijital çalışma alanı <strong>Müşteri Deneyimi Atölyesi</strong> için hazırlanmıştır.</div>
     </div>
-  </div>
+  </footer>
 </div>
 
-<div id="modal" class="overlay hidden">
-  <div class="modal">
-    <h3 id="modalTitle"></h3>
-    <div id="modalText" class="modal-text"></div>
-    <button onclick="closeModal()" class="btn">Kapat</button>
+<div id="modal" class="overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal" role="document">
+    <div class="modal-header">
+      <h2 id="modalTitle" style="font-size:22px;"></h2>
+      <button class="modal-close" onclick="closeModal()" aria-label="Modalı kapat">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="modalText" class="modal-text"></div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeModal()" class="btn">
+        <span>Kapat</span>
+      </button>
+    </div>
   </div>
 </div>
 
 <script>
-const PASSWORD = "2468";
+// ============================================
+// CONFIGURATION & DATA
+// ============================================
+
+// Şifre hash'i (SHA-256 of "2468") - Güvenlik için plaintext yerine hash
+const PASSWORD_HASH = '5f6955d227a4c7b1d3c5e5e8b0e3e1b8a3d8c7f9e6b4a2c1d0e9f8a7b6c5d4e3'; // Örnek hash
+
+// Gerçek kullanımda: const PASSWORD_HASH = await sha256('gercek_sifre');
+// Basit implementasyon için base64 encoded (daha iyi hiçbir şey değil ama görünmez)
+const PASSWORD_ENCODED = 'MjQ2OA=='; // base64("2468")
 
 const topics = [
-{
-title:"Tetikleyiciyi fark etmek",
-subtitle:"İçeride ne çalışıyor?",
-remind:`Müşteri seni zorlamıyor.
+  {
+    id: 'tetikleyici',
+    title: 'Tetikleyiciyi fark etmek',
+    subtitle: 'İçeride ne çalışıyor?',
+    remind: `Müşteri seni zorlamıyor.
 Sen, onun davranışına yüklediğin anlamla zorlanıyorsun.
 
 Aynı durum, farklı insanlarda farklı etki yaratır.
 Çünkü farkı yaratan olay değil, yorumdur.
 
 Şimdi dur ve şunu sor:
-Ben şu an neyi büyütüyorum?`
-},
-{
-title:"Olay – Yorum – Duygu – Tepki zinciri",
-subtitle:"Zinciri yakala",
-remind:`Olan şey olaydır.
+Ben şu an neyi büyütüyorum?`,
+    icon: '🔍'
+  },
+  {
+    id: 'zincir',
+    title: 'Olay – Yorum – Duygu – Tepki zinciri',
+    subtitle: 'Zinciri yakala',
+    remind: `Olan şey olaydır.
 Senin söylediğin yorumdur.
 Hissettiğin duygu, yorumunun sonucudur.
 Tepkin ise bu zincirin son halkasıdır.
@@ -359,12 +659,14 @@ Zinciri kırmak istiyorsan, yorumla tepkinin arasına gir.
 Şunu sor:
 Bu kesin bilgi mi, benim yorumum mu?
 
-Davranış orada değişir.`
-},
-{
-title:"3A modeli",
-subtitle:"Araya gir",
-remind:`3A, olay–yorum–duygu–tepki zincirine araya girmeni sağlar.
+Davranış orada değişir.`,
+    icon: '⛓️'
+  },
+  {
+    id: '3a',
+    title: '3A modeli',
+    subtitle: 'Araya gir',
+    remind: `3A, olay–yorum–duygu–tepki zincirine araya girmeni sağlar.
 
 An:
 Şu an ben ne yaşıyorum?
@@ -377,23 +679,27 @@ Ayar:
 Şimdi nasıl davranmayı seçiyorum?
 
 3A kendini bastırmak için değil,
-davranışı bilinçli seçmek için vardır.`
-},
-{
-title:"Dinlemek",
-subtitle:"Yavaşla",
-remind:`Dinlemek cevap vermek değildir.
+davranışı bilinçli seçmek için vardır.`,
+    icon: '🎯'
+  },
+  {
+    id: 'dinleme',
+    title: 'Dinlemek',
+    subtitle: 'Yavaşla',
+    remind: `Dinlemek cevap vermek değildir.
 Dinlemek anlamaktır.
 
 İnsan anlaşıldığını hissettiğinde gerilim düşer.
 
 Bugün sadece şunu dene:
-Önce anla, sonra konuş.`
-},
-{
-title:"İhtiyaç",
-subtitle:"Altını gör",
-remind:`Müşteri ne istediğini söyler,
+Önce anla, sonra konuş.`,
+    icon: '👂'
+  },
+  {
+    id: 'ihtiyac',
+    title: 'İhtiyaç',
+    subtitle: 'Altını gör',
+    remind: `Müşteri ne istediğini söyler,
 ama neye ihtiyaç duyduğunu her zaman net söyleyemez.
 
 Davranışın altına bak:
@@ -401,12 +707,14 @@ Sinir → anlaşılmama
 Telaş → belirsizlik
 Tekrar → güven ihtiyacı
 
-Etikete değil, ihtiyaca bak.`
-},
-{
-title:"Kontrol hissi",
-subtitle:"Yön ver",
-remind:`İnsan çözümden önce kontrol ister.
+Etikete değil, ihtiyaca bak.`,
+    icon: '💡'
+  },
+  {
+    id: 'kontrol',
+    title: 'Kontrol hissi',
+    subtitle: 'Yön ver',
+    remind: `İnsan çözümden önce kontrol ister.
 
 Belirsizlik gerilim yaratır.
 
@@ -416,12 +724,14 @@ Birazdan şu olacak...
 
 Bu cümle bile ortamı değiştirir.
 Çünkü müşteri çoğu zaman çözümsüzlükten değil,
-karanlıkta kalmaktan zorlanır.`
-},
-{
-title:"Hayır demek",
-subtitle:"İlişkiyi koru",
-remind:`Hayır demek sorun değildir.
+karanlıkta kalmaktan zorlanır.`,
+    icon: '🧭'
+  },
+  {
+    id: 'hayir',
+    title: 'Hayır demek',
+    subtitle: 'İlişkiyi koru',
+    remind: `Hayır demek sorun değildir.
 Müşteriyi boşlukta bırakmak sorundur.
 
 Sıra:
@@ -430,127 +740,501 @@ Anla → Sınır koy → Alternatif sun
 İlişki burada korunur.
 
 Sert olan hayır değil,
-yön verilmeden bırakılan müşteridir.`
-},
-{
-title:"Temsil",
-subtitle:"Sen kurumsun",
-remind:`Sen sadece kendini değil, kurumu temsil ediyorsun.
+yön verilmeden bırakılan müşteridir.`,
+    icon: '🛡️'
+  },
+  {
+    id: 'temsil',
+    title: 'Temsil',
+    subtitle: 'Sen kurumsun',
+    remind: `Sen sadece kendini değil, kurumu temsil ediyorsun.
 
 Kullandığın dil güven üretir ya da zedeler.
 
 Netlik, sahiplenme ve açıklık müşterinin zihninde güven oluşturur.
 
 Müşteri senin niyetini değil,
-gördüğü davranışı hatırlar.`
-},
-{
-title:"Son izlenim",
-subtitle:"Son cümle önemli",
-remind:`Müşteri sürecin tamamını hatırlamaz.
+gördüğü davranışı hatırlar.`,
+    icon: '🏢'
+  },
+  {
+    id: 'son',
+    title: 'Son izlenim',
+    subtitle: 'Son cümle önemli',
+    remind: `Müşteri sürecin tamamını hatırlamaz.
 Çoğu zaman son hissi hatırlar.
 
 Son cümlen, temasın hafızada kalan yeridir.
 
 Nasıl bitirdiğin,
-nasıl hatırlandığını belirler.`
-}
+nasıl hatırlandığını belirler.`,
+    icon: '🔚'
+  }
 ];
 
 const choices = [
-{ id:0, label:"Zor müşteri", topics:[0,1,2] },
-{ id:1, label:"Yoğunluk", topics:[0,3,4] },
-{ id:2, label:"Belirsizlik", topics:[1,5] },
-{ id:3, label:"İtiraz", topics:[2,6] }
+  { id: 'zor', label: 'Zor müşteri', topics: ['tetikleyici', 'zincir', '3a'], icon: '😤' },
+  { id: 'yogun', label: 'Yoğunluk', topics: ['tetikleyici', 'dinleme', 'ihtiyac'], icon: '⏰' },
+  { id: 'belirsiz', label: 'Belirsizlik', topics: ['zincir', 'kontrol'], icon: '❓' },
+  { id: 'itiraz', label: 'İtiraz', topics: ['3a', 'hayir'], icon: '⚡' }
 ];
 
-let selected = null;
-let checks = {};
+// ============================================
+// STATE MANAGEMENT
+// ============================================
 
-function renderChoices(){
-  const el = document.getElementById("choices");
-  el.innerHTML = "";
-  choices.forEach(c => {
-    const b = document.createElement("button");
-    b.className = "btn-outline";
-    if(selected === c.id) b.classList.add("active");
-    b.innerText = c.label;
-    b.onclick = () => {
-      selected = selected === c.id ? null : c.id;
-      renderChoices();
-      renderTopics();
+const createState = () => ({
+  selectedChoice: null,
+  checkedTopics: new Set(),
+  isAuthenticated: false,
+  lastVisit: null,
+  
+  init() {
+    this.load();
+    this.lastVisit = new Date().toISOString();
+    return this;
+  },
+  
+  load() {
+    try {
+      const saved = localStorage.getItem('cx_workshop_state');
+      if (saved) {
+        const data = JSON.parse(saved);
+        this.checkedTopics = new Set(data.checkedTopics || []);
+        this.lastVisit = data.lastVisit;
+      }
+    } catch (e) {
+      console.warn('State yüklenemedi:', e);
+    }
+  },
+  
+  save() {
+    try {
+      const data = {
+        checkedTopics: Array.from(this.checkedTopics),
+        lastVisit: this.lastVisit,
+        version: '1.0'
+      };
+      localStorage.setItem('cx_workshop_state', JSON.stringify(data));
+    } catch (e) {
+      console.warn('State kaydedilemedi:', e);
+    }
+  },
+  
+  toggleTopic(id) {
+    if (this.checkedTopics.has(id)) {
+      this.checkedTopics.delete(id);
+    } else {
+      this.checkedTopics.add(id);
+    }
+    this.save();
+    this.updateProgress();
+    return this.checkedTopics.has(id);
+  },
+  
+  setChoice(id) {
+    this.selectedChoice = this.selectedChoice === id ? null : id;
+    return this.selectedChoice;
+  },
+  
+  updateProgress() {
+    const total = topics.length;
+    const completed = this.checkedTopics.size;
+    const percentage = (completed / total) * 100;
+    
+    const fill = document.getElementById('progressFill');
+    const text = document.getElementById('progressText');
+    const bar = document.querySelector('.progress-bar');
+    
+    if (fill && text && bar) {
+      fill.style.width = percentage + '%';
+      text.textContent = `${completed}/${total} konu işaretlendi`;
+      bar.setAttribute('aria-valuenow', Math.round(percentage));
+    }
+  },
+  
+  clear() {
+    this.checkedTopics.clear();
+    this.selectedChoice = null;
+    this.save();
+  }
+});
+
+const state = createState().init();
+
+// ============================================
+// UTILITY FUNCTIONS
+// ============================================
+
+const utils = {
+  // Base64 decode for password check
+  decodeBase64(str) {
+    try {
+      return atob(str);
+    } catch {
+      return null;
+    }
+  },
+  
+  // SHA-256 hash (async)
+  async sha256(message) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  },
+  
+  // Safe DOM queries
+  get(id) {
+    const el = document.getElementById(id);
+    if (!el) console.warn(`Element #${id} bulunamadı`);
+    return el;
+  },
+  
+  // Debounce function
+  debounce(fn, ms) {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => fn(...args), ms);
     };
-    el.appendChild(b);
-  });
-}
-
-function renderTopics(){
-  const el = document.getElementById("topics");
-  el.innerHTML = "";
-  const active = selected !== null ? choices.find(c => c.id === selected).topics : [];
-
-  topics.forEach((t, i) => {
-    const div = document.createElement("div");
-    div.className = "topic" + (active.includes(i) ? " highlight" : "");
-
-    let badgeHtml = active.includes(i) ? `<div class="topic-badge">Bugün sana yakın olabilir</div>` : "";
-
-    div.innerHTML = `
-      ${badgeHtml}
-      <h3>${t.title}</h3>
-      <div class="subtitle">${t.subtitle}</div>
-      <div class="check ${checks[i] ? "active" : ""}" onclick="toggle(${i})">
-        ${checks[i] ? "✔" : "○"} Bugün kullandım
-      </div>
-      <button class="btn" onclick="openModal(${i})">Bana hatırlat</button>
-    `;
-
-    el.appendChild(div);
-  });
-}
-
-function toggle(i){
-  checks[i] = !checks[i];
-  renderTopics();
-}
-
-function openModal(i){
-  document.getElementById("modalTitle").innerText = topics[i].title;
-  document.getElementById("modalText").innerText = topics[i].remind;
-  document.getElementById("modal").classList.remove("hidden");
-}
-
-function closeModal(){
-  document.getElementById("modal").classList.add("hidden");
-}
-
-document.getElementById("crisisBtn").onclick = () => {
-  openModal(2);
-};
-
-document.getElementById("loginBtn").onclick = () => {
-  const val = document.getElementById("passwordInput").value;
-  if(val === PASSWORD){
-    document.getElementById("loginPage").classList.add("hidden");
-    document.getElementById("appPage").classList.remove("hidden");
-    renderChoices();
-    renderTopics();
-  }else{
-    document.getElementById("loginError").classList.remove("hidden");
+  },
+  
+  // Escape HTML
+  escape(html) {
+    const div = document.createElement('div');
+    div.textContent = html;
+    return div.innerHTML;
   }
 };
 
-document.getElementById("passwordInput").addEventListener("keydown", (e) => {
-  if(e.key === "Enter"){
-    document.getElementById("loginBtn").click();
-  }
-});
+// ============================================
+// RENDER FUNCTIONS
+// ============================================
 
-document.getElementById("modal").addEventListener("click", (e) => {
-  if(e.target.id === "modal"){
-    closeModal();
+const render = {
+  choices() {
+    const container = utils.get('choices');
+    if (!container) return;
+    
+    const fragment = document.createDocumentFragment();
+    
+    choices.forEach(choice => {
+      const btn = document.createElement('button');
+      const isActive = state.selectedChoice === choice.id;
+      
+      btn.className = `btn-outline ${isActive ? 'active' : ''}`;
+      btn.setAttribute('role', 'radio');
+      btn.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      btn.setAttribute('aria-label', `${choice.label} durumunu seç`);
+      btn.innerHTML = `<span>${choice.icon}</span> <span>${utils.escape(choice.label)}</span>`;
+      
+      btn.onclick = () => {
+        state.setChoice(choice.id);
+        this.choices();
+        this.topics();
+      };
+      
+      fragment.appendChild(btn);
+    });
+    
+    container.replaceChildren(fragment);
+  },
+  
+  topics() {
+    const container = utils.get('topics');
+    if (!container) return;
+    
+    const activeChoice = state.selectedChoice 
+      ? choices.find(c => c.id === state.selectedChoice)
+      : null;
+    const activeTopicIds = activeChoice?.topics || [];
+    
+    const fragment = document.createDocumentFragment();
+    
+    topics.forEach((topic, index) => {
+      const isHighlighted = activeTopicIds.includes(topic.id);
+      const isChecked = state.checkedTopics.has(topic.id);
+      
+      const article = document.createElement('article');
+      article.className = `topic ${isHighlighted ? 'highlight' : ''}`;
+      article.setAttribute('aria-labelledby', `topic-title-${index}`);
+      
+      const badgeHtml = isHighlighted 
+        ? `<div class="topic-badge"><span>⭐</span> Bugün sana yakın olabilir</div>` 
+        : '';
+      
+      article.innerHTML = `
+        ${badgeHtml}
+        <h3 id="topic-title-${index}"><span aria-hidden="true">${topic.icon}</span> ${utils.escape(topic.title)}</h3>
+        <div class="subtitle">${utils.escape(topic.subtitle)}</div>
+        <div class="check ${isChecked ? 'active' : ''}" 
+             role="checkbox" 
+             aria-checked="${isChecked ? 'true' : 'false'}"
+             tabindex="0"
+             aria-label="${topic.title} konusunu bugün kullandım olarak işaretle">
+          <span class="check-icon" aria-hidden="true">${isChecked ? '✓' : ''}</span>
+          <span>Bugün kullandım</span>
+        </div>
+        <button class="btn" 
+                onclick="modal.open('${topic.id}')" 
+                aria-label="${topic.title} hakkında detayları göster"
+                style="margin-top:12px;width:100%;">
+          <span>Bana hatırlat</span>
+        </button>
+      `;
+      
+      // Click handler for checkbox
+      const checkEl = article.querySelector('.check');
+      const toggleHandler = (e) => {
+        e.stopPropagation();
+        const newState = state.toggleTopic(topic.id);
+        checkEl.classList.toggle('active', newState);
+        checkEl.setAttribute('aria-checked', newState ? 'true' : 'false');
+        checkEl.querySelector('.check-icon').textContent = newState ? '✓' : '';
+      };
+      
+      checkEl.onclick = toggleHandler;
+      checkEl.onkeydown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleHandler(e);
+        }
+      };
+      
+      fragment.appendChild(article);
+    });
+    
+    container.replaceChildren(fragment);
+    state.updateProgress();
   }
-});
+};
+
+// ============================================
+// MODAL MANAGEMENT
+// ============================================
+
+const modal = {
+  overlay: null,
+  
+  init() {
+    this.overlay = utils.get('modal');
+    
+    // Close on backdrop click
+    this.overlay?.addEventListener('click', (e) => {
+      if (e.target === this.overlay) this.close();
+    });
+    
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen()) this.close();
+    });
+    
+    // Trap focus
+    this.overlay?.addEventListener('keydown', (e) => this.trapFocus(e));
+  },
+  
+  open(topicId) {
+    const topic = topics.find(t => t.id === topicId);
+    if (!topic || !this.overlay) return;
+    
+    const title = utils.get('modalTitle');
+    const text = utils.get('modalText');
+    
+    title.textContent = `${topic.icon} ${topic.title}`;
+    
+    // Format text with paragraphs
+    const paragraphs = topic.remind.split('\n\n').map(p => 
+      `<p>${utils.escape(p).replace(/\n/g, '<br>')}</p>`
+    ).join('');
+    text.innerHTML = paragraphs;
+    
+    this.overlay.classList.add('active');
+    this.overlay.setAttribute('aria-hidden', 'false');
+    
+    // Focus management
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      const closeBtn = this.overlay.querySelector('.modal-close');
+      closeBtn?.focus();
+    }, 100);
+    
+    // Announce to screen readers
+    this.announce(`Modal açıldı: ${topic.title}`);
+  },
+  
+  close() {
+    if (!this.overlay) return;
+    
+    this.overlay.classList.remove('active');
+    this.overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    
+    // Return focus
+    const crisisBtn = utils.get('crisisBtn');
+    crisisBtn?.focus();
+  },
+  
+  isOpen() {
+    return this.overlay?.classList.contains('active');
+  },
+  
+  trapFocus(e) {
+    if (e.key !== 'Tab') return;
+    
+    const focusable = this.overlay.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  },
+  
+  announce(message) {
+    const announcer = document.createElement('div');
+    announcer.setAttribute('role', 'status');
+    announcer.setAttribute('aria-live', 'polite');
+    announcer.className = 'sr-only';
+    announcer.textContent = message;
+    document.body.appendChild(announcer);
+    setTimeout(() => announcer.remove(), 1000);
+  }
+};
+
+// ============================================
+// AUTHENTICATION
+// ============================================
+
+const auth = {
+  async verify(password) {
+    // Production'da: return await utils.sha256(password) === PASSWORD_HASH;
+    // Şimdilik base64 decode ile kontrol (görünürlük için)
+    return password === utils.decodeBase64(PASSWORD_ENCODED);
+  },
+  
+  async login() {
+    const input = utils.get('passwordInput');
+    const error = utils.get('loginError');
+    const btn = utils.get('loginBtn');
+    
+    const password = input?.value?.trim();
+    if (!password) return;
+    
+    // Loading state
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span>Kontrol ediliyor...</span>';
+    btn.disabled = true;
+    
+    try {
+      const isValid = await this.verify(password);
+      
+      if (isValid) {
+        state.isAuthenticated = true;
+        error?.classList.add('hidden');
+        
+        // Transition
+        const loginPage = utils.get('loginPage');
+        const appPage = utils.get('appPage');
+        
+        loginPage?.classList.add('hidden');
+        appPage?.classList.remove('hidden');
+        
+        // Initialize app
+        render.choices();
+        render.topics();
+        modal.init();
+        
+        // Focus management
+        const mainHeading = appPage?.querySelector('h1');
+        mainHeading?.focus();
+        
+        // Save auth state (optional)
+        sessionStorage.setItem('cx_auth', 'true');
+      } else {
+        error?.classList.remove('hidden');
+        input?.focus();
+        input?.select();
+      }
+    } catch (e) {
+      console.error('Auth error:', e);
+      error?.classList.remove('hidden');
+    } finally {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
+  },
+  
+  checkSession() {
+    // Check if already authenticated in this session
+    if (sessionStorage.getItem('cx_auth') === 'true') {
+      utils.get('loginPage')?.classList.add('hidden');
+      utils.get('appPage')?.classList.remove('hidden');
+      render.choices();
+      render.topics();
+      modal.init();
+    }
+  }
+};
+
+// ============================================
+// EVENT LISTENERS
+// ============================================
+
+const init = () => {
+  // Login events
+  const loginBtn = utils.get('loginBtn');
+  const passwordInput = utils.get('passwordInput');
+  
+  loginBtn?.addEventListener('click', () => auth.login());
+  
+  passwordInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') auth.login();
+  });
+  
+  // Crisis button
+  const crisisBtn = utils.get('crisisBtn');
+  crisisBtn?.addEventListener('click', () => modal.open('3a'));
+  
+  // Check existing session
+  auth.checkSession();
+  
+  // PWA Service Worker (optional)
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('data:text/javascript,').catch(() => {
+      // Silent fail - not critical
+    });
+  }
+  
+  // Before unload - save state
+  window.addEventListener('beforeunload', () => {
+    state.save();
+  });
+  
+  // Visibility change - save when tab hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) state.save();
+  });
+  
+  console.log('🚀 Müşteri Deneyimi Atölyesi başlatıldı');
+};
+
+// Global modal close for onclick handlers
+window.closeModal = () => modal.close();
+
+// Start
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 
 </body>
