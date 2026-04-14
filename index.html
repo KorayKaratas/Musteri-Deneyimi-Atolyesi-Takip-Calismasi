@@ -4,169 +4,334 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Müşteri Deneyimi Atölyesi</title>
-
+<meta name="theme-color" content="#003B7A" />
 <style>
 :root{
---navy:#003B7A;
---light:#F7FAFC;
---line:#E5E7EB;
---text:#0F172A;
---white:#FFFFFF;
---shadow:0 10px 30px rgba(0,0,0,.08);
+  --navy:#003B7A;
+  --navy-2:#0f4b8c;
+  --light:#F7FAFC;
+  --line:#E5E7EB;
+  --text:#0F172A;
+  --muted:#64748B;
+  --white:#FFFFFF;
+  --shadow:0 10px 30px rgba(15,23,42,.08);
+  --radius-xl:24px;
+  --radius-lg:18px;
+  --radius-md:14px;
 }
 
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
 body{
-font-family:Arial;
-margin:0;
-background:var(--light);
-color:var(--text);
-user-select:none;
+  font-family:Arial, Helvetica, sans-serif;
+  background:var(--light);
+  color:var(--text);
+  -webkit-user-select:none;
+  user-select:none;
 }
+body[oncontextmenu]{-webkit-touch-callout:none}
 
-.wrap{max-width:1100px;margin:auto;padding:16px;}
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:16px;
+}
 
 .card{
-background:#fff;
-border-radius:20px;
-padding:20px;
-margin-top:16px;
-box-shadow:var(--shadow);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:20px;
+  margin-top:16px;
+  box-shadow:var(--shadow);
 }
 
 .hero{
-background:var(--navy);
-color:#fff;
-padding:24px;
-border-radius:24px;
+  background:var(--navy);
+  color:#fff;
+  padding:24px;
+  border-radius:24px;
 }
 
-h1{margin:0 0 10px 0}
+.eyebrow{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  opacity:.82;
+  margin-bottom:8px;
+}
+
+h1{
+  margin:0 0 10px 0;
+  line-height:1.15;
+}
+
+.hero p{
+  margin:0;
+  line-height:1.65;
+  color:rgba(255,255,255,.93);
+}
 
 .btn{
-background:var(--navy);
-color:#fff;
-border:none;
-padding:10px 14px;
-border-radius:12px;
-cursor:pointer;
-margin-top:10px;
+  background:var(--navy);
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:pointer;
+  margin-top:10px;
+  font-weight:700;
+  transition:.2s ease;
+}
+.btn:hover{background:var(--navy-2)}
+
+.btn-light{
+  background:#fff;
+  color:var(--navy);
+}
+.btn-light:hover{
+  background:#f4f7fb;
 }
 
 .btn-outline{
-border:1px solid var(--navy);
-background:#fff;
-color:var(--navy);
-padding:10px;
-border-radius:12px;
-cursor:pointer;
+  border:1px solid var(--navy);
+  background:#fff;
+  color:var(--navy);
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:600;
+  transition:.2s ease;
 }
-
 .btn-outline.active{
-background:var(--navy);
-color:#fff;
+  background:var(--navy);
+  color:#fff;
 }
 
 .choice-row{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
 }
 
 .topics{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:16px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:16px;
 }
 
 .topic{
-border:1px solid var(--line);
-border-radius:16px;
-padding:16px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+  background:#fff;
 }
 
 .topic.highlight{
-border:2px solid var(--navy);
+  border:2px solid var(--navy);
+}
+
+.topic-badge{
+  display:inline-block;
+  margin-bottom:10px;
+  background:#eef5ff;
+  color:var(--navy);
+  border:1px solid #cfe1ff;
+  font-size:12px;
+  font-weight:700;
+  padding:6px 10px;
+  border-radius:999px;
 }
 
 .subtitle{
-font-size:13px;
-color:#64748B;
-margin-bottom:10px;
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:10px;
 }
 
 .check{
-border:1px solid var(--line);
-padding:10px;
-border-radius:10px;
-cursor:pointer;
-margin-top:10px;
+  border:1px solid var(--line);
+  padding:12px 14px;
+  border-radius:12px;
+  cursor:pointer;
+  margin-top:10px;
+  font-size:15px;
+  background:#fff;
+}
+.check.active{
+  background:#F0F6FF;
+  border-color:var(--navy);
+  color:var(--navy);
+  font-weight:700;
 }
 
-.check.active{
-background:#F0F6FF;
-border-color:var(--navy);
+.login-shell{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-box{
+  width:100%;
+  max-width:430px;
+  overflow:hidden;
+}
+
+.login-head{
+  background:var(--navy);
+  color:#fff;
+  padding:24px;
+}
+
+.login-body{
+  padding:24px;
+  background:#fff;
+}
+
+.input{
+  width:100%;
+  border:1px solid #D1D5DB;
+  border-radius:14px;
+  padding:12px;
+  font:inherit;
+}
+.input:focus{
+  outline:none;
+  border-color:var(--navy);
+  box-shadow:0 0 0 3px rgba(0,59,122,.12);
+}
+
+.error{
+  color:#DC2626;
+  font-size:14px;
+  margin-top:10px;
 }
 
 .overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.6);
-display:flex;
-align-items:center;
-justify-content:center;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  z-index:999;
 }
 
 .modal{
-background:#fff;
-padding:24px;
-border-radius:16px;
-max-width:600px;
-width:90%;
+  background:#fff;
+  padding:24px;
+  border-radius:16px;
+  max-width:720px;
+  width:90%;
+  box-shadow:var(--shadow);
+}
+
+.modal h3{
+  margin-top:0;
+  margin-bottom:10px;
 }
 
 .modal-text{
-white-space:pre-line;
-line-height:1.8;
-font-size:17px;
-margin-top:10px;
+  white-space:pre-line;
+  line-height:1.8;
+  font-size:17px;
+  color:#334155;
 }
 
-.hidden{display:none}
+.footer{
+  border-top:1px solid var(--line);
+  background:var(--light);
+  margin-top:24px;
+}
+.footer .wrap{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  font-size:14px;
+  color:#475569;
+  padding-top:18px;
+  padding-bottom:18px;
+}
+
+.hidden{display:none !important}
+
+@media (max-width: 540px){
+  .wrap{padding:12px}
+  .hero{padding:18px;border-radius:22px}
+  h1{font-size:30px}
+}
 </style>
 </head>
+<body oncontextmenu="return false;">
 
-<body>
-
-<div class="wrap">
-
-<div class="hero">
-<h1>Müşteri Deneyimi Davranış Alanı</h1>
-<p>
-Bu alan yeni bir şey öğretmek için değil,
-bildiğini hatırlatmak için hazırlandı.
-</p>
-<button id="crisisBtn" class="btn">Zor andayım</button>
+<div id="loginPage" class="login-shell">
+  <div class="card login-box">
+    <div class="login-head">
+      <div class="eyebrow">Şifreli erişim</div>
+      <h1 style="font-size:30px;">Müşteri Deneyimi Atölyesi</h1>
+      <p>Bu davranış alanı, eğitimde konuşulan başlıkları günlük akışta hatırlatmak için hazırlandı.</p>
+    </div>
+    <div class="login-body">
+      <input id="passwordInput" class="input" type="password" placeholder="Şifre" />
+      <button id="loginBtn" class="btn" style="width:100%;margin-top:14px;">Giriş</button>
+      <div id="loginError" class="error hidden">Şifre hatalı.</div>
+      <div style="border-top:1px solid var(--line);margin-top:16px;padding-top:12px;font-size:12px;color:#64748B">
+        <div><strong>2K Eğitim Danışmanlık / Koray Karataş</strong></div>
+        <div>Bu dijital çalışma alanı Müşteri Deneyimi Atölyesi için hazırlanmıştır.</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="card">
-<b>Bugün daha çok ne yaşadın?</b>
-<div id="choices" class="choice-row"></div>
+<div id="appPage" class="hidden">
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="eyebrow">2K Eğitim Danışmanlık / Koray Karataş</div>
+      <h1>Müşteri Deneyimi Davranış Alanı</h1>
+      <p>
+        Bu alan yeni bir şey öğretmek için değil, bildiğini hatırlatmak için hazırlandı.
+        Çünkü müşteri değişmeyecek, yoğunluk değişmeyecek, şartlar çoğu zaman değişmeyecek.
+        Ama sen aynı durumun içinde nasıl davrandığını değiştirebilirsin.
+      </p>
+      <button id="crisisBtn" class="btn btn-light">Zor andayım</button>
+    </div>
+
+    <div class="card">
+      <div style="font-weight:700;font-size:18px;">Bugün daha çok ne yaşadın?</div>
+      <div id="choices" class="choice-row"></div>
+      <div class="subtitle" style="margin-top:10px;">
+        Birini seçersen, sana en çok temas edebilecek başlıklar öne çıkarılır.
+      </div>
+    </div>
+
+    <div id="topics" class="topics"></div>
+
+  </div>
+
+  <div class="footer">
+    <div class="wrap">
+      <div><strong>2K Eğitim Danışmanlık / Koray Karataş</strong></div>
+      <div>Bu dijital çalışma alanı <strong>Müşteri Deneyimi Atölyesi</strong> için hazırlanmıştır.</div>
+    </div>
+  </div>
 </div>
 
-<div id="topics" class="topics"></div>
-
-</div>
-
-<!-- MODAL -->
 <div id="modal" class="overlay hidden">
-<div class="modal">
-<h3 id="modalTitle"></h3>
-<div id="modalText" class="modal-text"></div>
-<button onclick="closeModal()" class="btn">Kapat</button>
-</div>
+  <div class="modal">
+    <h3 id="modalTitle"></h3>
+    <div id="modalText" class="modal-text"></div>
+    <button onclick="closeModal()" class="btn">Kapat</button>
+  </div>
 </div>
 
 <script>
+const PASSWORD = "2468";
 
 const topics = [
 {
@@ -247,8 +412,11 @@ Belirsizlik gerilim yaratır.
 
 Şunu söyle:
 Şu an şu aşamadayız...
+Birazdan şu olacak...
 
-Bu cümle bile ortamı değiştirir.`
+Bu cümle bile ortamı değiştirir.
+Çünkü müşteri çoğu zaman çözümsüzlükten değil,
+karanlıkta kalmaktan zorlanır.`
 },
 {
 title:"Hayır demek",
@@ -259,7 +427,10 @@ Müşteriyi boşlukta bırakmak sorundur.
 Sıra:
 Anla → Sınır koy → Alternatif sun
 
-İlişki burada korunur.`
+İlişki burada korunur.
+
+Sert olan hayır değil,
+yön verilmeden bırakılan müşteridir.`
 },
 {
 title:"Temsil",
@@ -268,8 +439,10 @@ remind:`Sen sadece kendini değil, kurumu temsil ediyorsun.
 
 Kullandığın dil güven üretir ya da zedeler.
 
+Netlik, sahiplenme ve açıklık müşterinin zihninde güven oluşturur.
+
 Müşteri senin niyetini değil,
-davranışını hatırlar.`
+gördüğü davranışı hatırlar.`
 },
 {
 title:"Son izlenim",
@@ -277,82 +450,107 @@ subtitle:"Son cümle önemli",
 remind:`Müşteri sürecin tamamını hatırlamaz.
 Çoğu zaman son hissi hatırlar.
 
-Son cümlen,
+Son cümlen, temasın hafızada kalan yeridir.
+
+Nasıl bitirdiğin,
 nasıl hatırlandığını belirler.`
 }
 ];
 
 const choices = [
-{ id:0, label:"Zor müşteri", topics:[0,1,2]},
-{ id:1, label:"Yoğunluk", topics:[0,3,4]},
-{ id:2, label:"Belirsizlik", topics:[1,5]},
-{ id:3, label:"İtiraz", topics:[2,6]}
+{ id:0, label:"Zor müşteri", topics:[0,1,2] },
+{ id:1, label:"Yoğunluk", topics:[0,3,4] },
+{ id:2, label:"Belirsizlik", topics:[1,5] },
+{ id:3, label:"İtiraz", topics:[2,6] }
 ];
 
-let selected=null;
-let checks={};
+let selected = null;
+let checks = {};
 
 function renderChoices(){
-const el=document.getElementById("choices");
-el.innerHTML="";
-choices.forEach(c=>{
-const b=document.createElement("button");
-b.className="btn-outline";
-if(selected===c.id) b.classList.add("active");
-b.innerText=c.label;
-b.onclick=()=>{
-selected=selected===c.id?null:c.id;
-renderChoices();
-renderTopics();
-};
-el.appendChild(b);
-});
+  const el = document.getElementById("choices");
+  el.innerHTML = "";
+  choices.forEach(c => {
+    const b = document.createElement("button");
+    b.className = "btn-outline";
+    if(selected === c.id) b.classList.add("active");
+    b.innerText = c.label;
+    b.onclick = () => {
+      selected = selected === c.id ? null : c.id;
+      renderChoices();
+      renderTopics();
+    };
+    el.appendChild(b);
+  });
 }
 
 function renderTopics(){
-const el=document.getElementById("topics");
-el.innerHTML="";
-const active=selected!==null ? choices.find(c=>c.id===selected).topics : [];
+  const el = document.getElementById("topics");
+  el.innerHTML = "";
+  const active = selected !== null ? choices.find(c => c.id === selected).topics : [];
 
-topics.forEach((t,i)=>{
-const div=document.createElement("div");
-div.className="topic"+(active.includes(i)?" highlight":"");
+  topics.forEach((t, i) => {
+    const div = document.createElement("div");
+    div.className = "topic" + (active.includes(i) ? " highlight" : "");
 
-div.innerHTML=`
-<h3>${t.title}</h3>
-<div class="subtitle">${t.subtitle}</div>
-<div class="check ${checks[i]?"active":""}" onclick="toggle(${i})">
-${checks[i]?"✔":"○"} Bugün kullandım
-</div>
-<button class="btn" onclick="openModal(${i})">Bana hatırlat</button>
-`;
+    let badgeHtml = active.includes(i) ? `<div class="topic-badge">Bugün sana yakın olabilir</div>` : "";
 
-el.appendChild(div);
-});
+    div.innerHTML = `
+      ${badgeHtml}
+      <h3>${t.title}</h3>
+      <div class="subtitle">${t.subtitle}</div>
+      <div class="check ${checks[i] ? "active" : ""}" onclick="toggle(${i})">
+        ${checks[i] ? "✔" : "○"} Bugün kullandım
+      </div>
+      <button class="btn" onclick="openModal(${i})">Bana hatırlat</button>
+    `;
+
+    el.appendChild(div);
+  });
 }
 
 function toggle(i){
-checks[i]=!checks[i];
-renderTopics();
+  checks[i] = !checks[i];
+  renderTopics();
 }
 
 function openModal(i){
-document.getElementById("modalTitle").innerText=topics[i].title;
-document.getElementById("modalText").innerText=topics[i].remind;
-document.getElementById("modal").classList.remove("hidden");
+  document.getElementById("modalTitle").innerText = topics[i].title;
+  document.getElementById("modalText").innerText = topics[i].remind;
+  document.getElementById("modal").classList.remove("hidden");
 }
 
 function closeModal(){
-document.getElementById("modal").classList.add("hidden");
+  document.getElementById("modal").classList.add("hidden");
 }
 
-document.getElementById("crisisBtn").onclick=()=>{
-openModal(2);
+document.getElementById("crisisBtn").onclick = () => {
+  openModal(2);
 };
 
-renderChoices();
-renderTopics();
+document.getElementById("loginBtn").onclick = () => {
+  const val = document.getElementById("passwordInput").value;
+  if(val === PASSWORD){
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("appPage").classList.remove("hidden");
+    renderChoices();
+    renderTopics();
+  }else{
+    document.getElementById("loginError").classList.remove("hidden");
+  }
+};
 
+document.getElementById("passwordInput").addEventListener("keydown", (e) => {
+  if(e.key === "Enter"){
+    document.getElementById("loginBtn").click();
+  }
+});
+
+document.getElementById("modal").addEventListener("click", (e) => {
+  if(e.target.id === "modal"){
+    closeModal();
+  }
+});
 </script>
 
 </body>
